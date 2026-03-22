@@ -129,5 +129,10 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      - name: Import pre-created backend resources
+        run: |
+          terraform import aws_s3_bucket.terraform_state devops-portfolio-dev-tfstate
+          terraform import aws_dynamodb_table.terraform_locks devops-portfolio-dev-tfstate-locks
+
       - name: Terraform Apply
         run: terraform apply -auto-approve
